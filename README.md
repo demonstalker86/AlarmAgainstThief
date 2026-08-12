@@ -46,28 +46,23 @@ This project demonstrates a **burglar alarm system** using **`Mathf.MoveTowards`
 ### Scene Hierarchy
 
 AlarmAgainstThief (Scene)
-│
-├── Ground (Plane, GroundMaterial)
-├── Directional Light
-│
-├── Point_Start (empty, Z = -12)
-├── Point_Center (empty, center of house)
-├── Point_Exit (empty, Z = +14)
-│
-├── Lesha (Capsule + Thief + ThiefNavigator + ThiefJourney + NavMeshAgent)
-│
-├── AlarmBinder (AlarmBinder, references to trigger and sound)
-│
-└── House (empty container)
-├── Floor
-├── Wall_Back
-├── Wall_Front_Left
-├── Wall_Front_Right
-├── Wall_Left
-├── Wall_Right
-├── Roof
-├── AlarmTrigger (Cube, Is Trigger = true, HouseTrigger)
-└── AlarmSource (AudioSource + AudioDistortionFilter + AlarmSound)
+- Ground (Plane, GroundMaterial)
+- Directional Light
+- Point_Start (empty, Z = -12)
+- Point_Center (empty, center of house)
+- Point_Exit (empty, Z = +14)
+- Lesha (Capsule + Thief + ThiefNavigator + ThiefJourney + NavMeshAgent)
+- AlarmBinder (AlarmBinder, references to trigger and sound)
+- House (empty container)
+  - Floor
+  - Wall_Back
+  - Wall_Front_Left
+  - Wall_Front_Right
+  - Wall_Left
+  - Wall_Right
+  - Roof
+  - AlarmTrigger (Cube, Is Trigger = true, HouseTrigger)
+  - AlarmSource (AudioSource + AudioDistortionFilter + AlarmSound)
 
 ---
 
@@ -101,7 +96,6 @@ AlarmAgainstThief (Scene)
 
 ## How It Works (Logic Flow)
 
-```mermaid
 graph TD
     A[Start: Lesha at Point_Start] --> B[Move to Point_Center]
     B --> C{Crosses trigger?}
@@ -117,14 +111,13 @@ graph TD
 
 Technologies & Requirements
 
-| Component | Version / Description |
-|-----------|-----------------------|
-| Unity     | 6.5.7f1 (CoreCLR)    |
-| Language  | C# (.NET Standard 2.1)|
-| Build     | IL2CPP / Mono         |
-| Navigation| NavMesh (Unity AI)    |
-| Audio     | `AudioSource` + `AudioDistortionFilter` |
-| Math      | `Mathf.MoveTowards` (guaranteed target reaching) |
+Component	Version / Description
+Unity	        6.5.7f1 (CoreCLR)
+Language	C# (.NET Standard 2.1)
+Build	        IL2CPP / Mono
+Navigation	NavMesh (Unity AI)
+Audio	        AudioSource + AudioDistortionFilter
+Math	        Mathf.MoveTowards (guaranteed target reaching)
 
 Setup & Run
 Clone the repository:
