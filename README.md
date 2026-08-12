@@ -116,13 +116,15 @@ graph TD
     K --> L[End: Lesha stands outside]
 
 Technologies & Requirements
-Component	Version / Description
-Unity	6.5.7f1 (CoreCLR)
-Language	C# (.NET Standard 2.1)
-Build	IL2CPP / Mono (optional)
-Navigation	NavMesh (Unity AI)
-Audio	AudioSource + AudioDistortionFilter
-Math	Mathf.MoveTowards (guaranteed target reaching)
+
+| Component | Version / Description |
+|-----------|-----------------------|
+| Unity     | 6.5.7f1 (CoreCLR)    |
+| Language  | C# (.NET Standard 2.1)|
+| Build     | IL2CPP / Mono         |
+| Navigation| NavMesh (Unity AI)    |
+| Audio     | `AudioSource` + `AudioDistortionFilter` |
+| Math      | `Mathf.MoveTowards` (guaranteed target reaching) |
 
 Setup & Run
 Clone the repository:
