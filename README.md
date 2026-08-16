@@ -1,4 +1,5 @@
 markdown
+
 # Alarm Against Thief
 
 **Educational Project | Unity 6.5.7f1 | C# | SOLID, OOP**
@@ -36,9 +37,9 @@ This project demonstrates a **burglar alarm system** using `Mathf.MoveTowards` f
 | Script | Responsibility |
 |--------|----------------|
 | `Thief` | Empty marker component for identifying the thief |
-| `ThiefNavigator` | Moves toward a target using `NavMeshAgent`. Fires `OnTargetReached` event |
+| `ThiefNavigator` | Moves toward a target using `NavMeshAgent`. Fires `TargetReached` event |
 | `ThiefJourney` | Manages waypoints, pauses, and target switching (no FSM or switch statements) |
-| `HouseTrigger` | Door trigger. Detects thief entry/exit via `TryGetComponent<Thief>()`. Fires `OnThiefPresenceChanged` |
+| `HouseTrigger` | Door trigger. Detects thief entry/exit via `TryGetComponent<Thief>()`. Fires `ThiefPresenceChanged` |
 | `AlarmSound` | Controls `volume` and `distortionLevel` using `Mathf.MoveTowards` |
 | `AlarmBinder` | Connects trigger and sound via event subscriptions |
 
@@ -46,7 +47,6 @@ This project demonstrates a **burglar alarm system** using `Mathf.MoveTowards` f
 
 ### Scene Hierarchy
 
-```
 AlarmAgainstThief (Scene)
 ├── Ground (Plane, GroundMaterial)
 ├── Directional Light
@@ -56,16 +56,17 @@ AlarmAgainstThief (Scene)
 ├── Lesha (Capsule + Thief + ThiefNavigator + ThiefJourney + NavMeshAgent)
 ├── AlarmBinder (AlarmBinder, references to trigger and sound)
 └── House (empty container)
-    ├── Floor
-    ├── Wall_Back
-    ├── Wall_Front_Left
-    ├── Wall_Front_Right
-    ├── Wall_Left
-    ├── Wall_Right
-    ├── Roof
-    ├── AlarmTrigger (Cube, Is Trigger = true, HouseTrigger)
-    └── AlarmSource (AudioSource + AudioDistortionFilter + AlarmSound)
-```
+├── Floor
+├── Wall_Back
+├── Wall_Front_Left
+├── Wall_Front_Right
+├── Wall_Left
+├── Wall_Right
+├── Roof
+├── AlarmTrigger (Cube, Is Trigger = true, HouseTrigger)
+└── AlarmSource (AudioSource + AudioDistortionFilter + AlarmSound)
+
+text
 
 ---
 
@@ -87,13 +88,28 @@ AlarmAgainstThief (Scene)
 | Ground | `(0, -0.5, 0)` | `(3, 1, 3)` |
 | Floor | `(0, -0.5, 0)` | `(10, 1, 10)` |
 | Wall_Back | `(0, 1.5, -5)` | `(10, 3, 0.5)` |
-| Wall_Front_Left | `(-1.75, 1.5, 5)` | `(3.5, 3, 0.5)` |
-| Wall_Front_Right | `(1.75, 1.5, 5)` | `(3.5, 3, 0.5)` |
+| Wall_Front_Left | `(-3.375, 1.5, 5)` | `(3.25, 3, 0.5)` |
+| Wall_Front_Right | `(3.375, 1.5, 5)` | `(3.25, 3, 0.5)` |
 | Wall_Left | `(-5, 1.5, 0)` | `(0.5, 3, 10)` |
 | Wall_Right | `(5, 1.5, 0)` | `(0.5, 3, 10)` |
-| Roof | `(0, 3.5, 0)` | `(10.8, 0.3, 10.8)` |
+| Roof | `(0, 3.15, 0)` | `(10.8, 0.3, 10.8)` |
 | AlarmTrigger | `(0, 1.5, 4.8)` | `(3.5, 3, 0.5)` |
 | AlarmSource | `(0, 2.5, -4)` | — |
+
+---
+
+## Camera Setup
+
+Recommended camera angle for optimal view of the house entrance and Lesha's approach path:
+
+| Parameter | Value |
+|-----------|-------|
+| **Position** | `(-13, 9, 8)` |
+| **Rotation** | `(30, 95, 0)` |
+| **Projection** | `Perspective` |
+| **Field of View** | `60` |
+
+This angle captures both the front door and the path from Lesha's start position.
 
 ---
 
@@ -112,57 +128,40 @@ graph TD
     I -->|Yes| J[AlarmSound: SetAlarmState false]
     J --> K[Mathf.MoveTowards: volume ↓, distortion ↓]
     K --> L[End: Lesha stands outside]
-```
 
----
+Technologies & Requirements
 
-## Technologies & Requirements
+Component	Version / Description
+Unity	6.5.7f1 (CoreCLR)
+Language	C# (.NET Standard 2.1)
+Build	IL2CPP / Mono
+Navigation	NavMesh (Unity AI)
+Audio	AudioSource + AudioDistortionFilter
+Math	Mathf.MoveTowards (guaranteed target reaching)
+Setup & Run
+Clone the repository:
 
-| Component | Version / Description |
-|-----------|-----------------------|
-| Unity | 6.5.7f1 (CoreCLR) |
-| Language | C# (.NET Standard 2.1) |
-| Build | IL2CPP / Mono |
-| Navigation | NavMesh (Unity AI) |
-| Audio | `AudioSource` + `AudioDistortionFilter` |
-| Math | `Mathf.MoveTowards` (guaranteed target reaching) |
+bash
+git clone https://github.com/demonstalker86/AlarmAgainstThief.git
 
----
+Open the project in Unity Hub (select Unity 6.5.7f1).
 
-## Setup & Run
+Open scene Assets/Scenes/SampleScene.unity.
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/demonstalker86/AlarmAgainstThief.git
-   ```
-2. Open the project in **Unity Hub** (select Unity 6.5.7f1).
-3. Open scene `Assets/Scenes/SampleScene.unity` (or create one following the instructions above).
-4. Press **Play** and watch Lesha.
+Press Play and watch Lesha.
 
----
+Future Improvements (Optional)
+□ Add flashing light (Point Light with animation)
+□ Add UI indicator "ALARM!" on screen
+□ Add multiple houses with independent alarms
+□ Implement random waypoints for Lesha
+□ Replace primitives with Low Poly 3D models
 
-## Future Improvements (Optional)
+Author
+demonstalker86
 
-- [ ] Add flashing light (Point Light with animation)
-- [ ] Add UI indicator "ALARM!" on screen
-- [ ] Add multiple houses with independent alarms
-- [ ] Implement random waypoints for Lesha
-- [ ] Replace primitives with Low Poly 3D models
-
----
-
-## Author
-
-**demonstalker86**
-
----
-
-## License
-
+License
 Created for educational purposes. Free to use and modify.
 
----
-
-## P.S.
-
+P.S.
 Lesha is waiting for you at home! 🕵️‍♂️🔊🏠
