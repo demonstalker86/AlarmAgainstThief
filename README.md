@@ -1,5 +1,4 @@
 markdown
-
 # Alarm Against Thief
 
 **Educational Project | Unity 6.5.7f1 | C# | SOLID, OOP**
@@ -115,40 +114,41 @@ This angle captures both the front door and the path from Lesha's start position
 
 ## How It Works (Logic Flow)
 
-```mermaid
-graph TD
-    A[Start: Lesha at Point_Start] --> B[Move to Point_Center]
-    B --> C{Crosses trigger?}
-    C -->|Yes| D[AlarmSound: SetAlarmState true]
-    D --> E[Mathf.MoveTowards: volume ↑, distortion ↑]
-    E --> F[Lesha reaches center]
-    F --> G[Pause 2 seconds]
-    G --> H[Move to Point_Exit]
-    H --> I{Crosses trigger?}
-    I -->|Yes| J[AlarmSound: SetAlarmState false]
-    J --> K[Mathf.MoveTowards: volume ↓, distortion ↓]
-    K --> L[End: Lesha stands outside]
+The sequence of actions is as follows:
 
-Technologies & Requirements
+1. Lesha starts at `Point_Start` and moves to `Point_Center` (inside the house).
+2. When Lesha crosses the door trigger, the alarm activates.
+3. Alarm volume and distortion smoothly increase using `Mathf.MoveTowards`.
+4. Lesha reaches the center and pauses for 2 seconds.
+5. Lesha then moves to `Point_Exit` (outside).
+6. When Lesha crosses the trigger on the way out, the alarm deactivates and smoothly fades to zero.
 
-Component	Version / Description
-Unity	6.5.7f1 (CoreCLR)
-Language	C# (.NET Standard 2.1)
-Build	IL2CPP / Mono
-Navigation	NavMesh (Unity AI)
-Audio	AudioSource + AudioDistortionFilter
-Math	Mathf.MoveTowards (guaranteed target reaching)
-Setup & Run
-Clone the repository:
+---
 
-bash
-git clone https://github.com/demonstalker86/AlarmAgainstThief.git
+## Technologies & Requirements
 
-Open the project in Unity Hub (select Unity 6.5.7f1).
+| Component | Version / Description |
+|-----------|-----------------------|
+| Unity | 6.5.7f1 (CoreCLR) |
+| Language | C# (.NET Standard 2.1) |
+| Build | IL2CPP / Mono |
+| Navigation | NavMesh (Unity AI) |
+| Audio | `AudioSource` + `AudioDistortionFilter` |
+| Math | `Mathf.MoveTowards` (guaranteed target reaching) |
 
-Open scene Assets/Scenes/SampleScene.unity.
+---
 
-Press Play and watch Lesha.
+## Setup & Run
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/demonstalker86/AlarmAgainstThief.git
+
+2.Open the project in Unity Hub (select Unity 6.5.7f1).
+
+3.Open scene Assets/Scenes/SampleScene.unity.
+
+4.Press Play and watch Lesha.
 
 Future Improvements (Optional)
 □ Add flashing light (Point Light with animation)
