@@ -11,6 +11,7 @@ public class AlarmBinder : MonoBehaviour
         if (houseTrigger == null)
         {
             Debug.LogError($"{name}: HouseTrigger не назначен!");
+
             enabled = false;
             return;
         }
@@ -18,16 +19,17 @@ public class AlarmBinder : MonoBehaviour
         if (alarmSound == null)
         {
             Debug.LogError($"{name}: AlarmSound не назначен!");
+
             enabled = false;
             return;
         }
 
-        houseTrigger.OnThiefPresenceChanged += alarmSound.SetAlarmState;
+        houseTrigger.ThiefPresenceChanged += alarmSound.SetAlarmState;
     }
 
     private void OnDestroy()
     {
         if (houseTrigger != null)
-            houseTrigger.OnThiefPresenceChanged -= alarmSound.SetAlarmState;
+            houseTrigger.ThiefPresenceChanged -= alarmSound.SetAlarmState;
     }
 }

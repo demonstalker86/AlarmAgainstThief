@@ -19,14 +19,15 @@ public class ThiefJourney : MonoBehaviour
 
     private void Awake()
     {
-        if (!TryGetComponent(out navigator))
+        if (TryGetComponent(out navigator) == false)
         {
             Debug.LogError($"{name}: ThiefNavigator не найден!");
+
             enabled = false;
             return;
         }
 
-        navigator.OnTargetReached += HandleTargetReached;
+        navigator.TargetReached += HandleTargetReached;
     }
 
     private void Start()
@@ -34,6 +35,7 @@ public class ThiefJourney : MonoBehaviour
         if (waypoints.Count == 0)
         {
             Debug.LogWarning($"{name}: Маршрут пуст!");
+
             return;
         }
 
@@ -42,12 +44,14 @@ public class ThiefJourney : MonoBehaviour
 
     private void Update()
     {
-        if (!isPausing) return;
+        if (isPausing == false) return;
 
         pauseTimer -= Time.deltaTime;
+
         if (pauseTimer <= 0f)
         {
             isPausing = false;
+
             NavigateToNextPoint();
         }
     }
@@ -70,6 +74,7 @@ public class ThiefJourney : MonoBehaviour
         if (waypoints.Count == 0) return;
 
         var target = waypoints[currentWaypointIndex];
+
         navigator.SetDestination(target);
 
         currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
@@ -78,6 +83,6 @@ public class ThiefJourney : MonoBehaviour
     private void OnDestroy()
     {
         if (navigator != null)
-            navigator.OnTargetReached -= HandleTargetReached;
+            navigator.TargetReached -= HandleTargetReached;
     }
 }

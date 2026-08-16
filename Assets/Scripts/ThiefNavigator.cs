@@ -10,13 +10,14 @@ public class ThiefNavigator : MonoBehaviour
     private Transform currentTarget;
     private bool hasTarget = false;
 
-    public event System.Action OnTargetReached;
+    public event System.Action TargetReached;
 
     private void Awake()
     {
-        if (!TryGetComponent(out agent))
+        if (TryGetComponent(out agent) == false)
         {
             Debug.LogError($"{name}: NavMeshAgent не найден!");
+
             enabled = false;
             return;
         }
@@ -24,31 +25,39 @@ public class ThiefNavigator : MonoBehaviour
 
     private void Update()
     {
-        if (!hasTarget || agent == null || !agent.isOnNavMesh || !agent.enabled) return;
+        if (hasTarget == false || agent == null || !agent.isOnNavMesh || agent.enabled == false) return;
+
         if (agent.pathPending) return;
+
         if (agent.remainingDistance <= arrivalThreshold)
         {
             hasTarget = false;
-            OnTargetReached?.Invoke();
+
+            TargetReached?.Invoke();
         }
     }
 
     public void SetDestination(Transform target)
     {
         if (target == null) return;
-        if (agent == null || !agent.isOnNavMesh || !agent.enabled)
+
+        if (agent == null || agent.isOnNavMesh == false || agent.enabled == false)
         {
             Debug.LogWarning($"{name}: агент не на NavMesh, цель не установлена");
+
             return;
         }
+
         currentTarget = target;
         hasTarget = true;
+
         agent.SetDestination(target.position);
     }
 
     public void StopMovement()
     {
         hasTarget = false;
+
         agent.ResetPath();
     }
 }

@@ -21,16 +21,18 @@ public class AlarmSound : MonoBehaviour
 
     private void Awake()
     {
-        if (audioSource == null && !TryGetComponent(out audioSource))
+        if (audioSource == null && TryGetComponent(out audioSource) == false)
         {
             Debug.LogError($"{name}: AudioSource не найден!");
+
             enabled = false;
             return;
         }
 
-        if (distortionFilter == null && !TryGetComponent(out distortionFilter))
+        if (distortionFilter == null && TryGetComponent(out distortionFilter) == false)
         {
             Debug.LogError($"{name}: AudioDistortionFilter не найден!");
+
             enabled = false;
             return;
         }
