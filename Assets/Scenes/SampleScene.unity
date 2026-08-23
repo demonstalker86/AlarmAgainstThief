@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 124699968}
   - component: {fileID: 124699969}
   m_Layer: 0
-  m_Name: Lesha
+  m_Name: Crook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

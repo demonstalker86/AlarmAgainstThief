@@ -7,13 +7,13 @@ markdown
 
 ## Description
 
-This project demonstrates a **burglar alarm system** using `Mathf.MoveTowards` for smooth audio transitions.
+This project demonstrates a **burglar alarm system** using `Mathf.MoveTowards` for smooth audio transitions. The alarm helps **Lesha** (the homeowner) catch a **Crook** (the thief).
 
 **Scenario:**
-- A thief named **Lesha** enters a house using a predefined waypoint path.
+- A crook enters the house using a predefined waypoint path.
 - Crossing the door trigger activates the **alarm sound**.
 - Volume and distortion level increase smoothly to maximum.
-- Lesha gets scared, pauses for **2 seconds** in the center, then runs away.
+- The crook gets scared, pauses for **2 seconds** in the center, then runs away.
 - Alarm sound smoothly fades to zero.
 
 ---
@@ -35,24 +35,23 @@ This project demonstrates a **burglar alarm system** using `Mathf.MoveTowards` f
 
 | Script | Responsibility |
 |--------|----------------|
-| `Thief` | Empty marker component for identifying the thief |
+| `Thief` | Empty marker component for identifying the crook |
 | `ThiefNavigator` | Moves toward a target using `NavMeshAgent`. Fires `TargetReached` event |
 | `ThiefJourney` | Manages waypoints, pauses, and target switching (no FSM or switch statements) |
-| `HouseTrigger` | Door trigger. Detects thief entry/exit via `TryGetComponent<Thief>()`. Fires `ThiefPresenceChanged` |
+| `HouseTrigger` | Door trigger. Detects crook entry/exit via `TryGetComponent<Thief>()`. Fires `ThiefPresenceChanged` |
 | `AlarmSound` | Controls `volume` and `distortionLevel` using `Mathf.MoveTowards` |
 | `AlarmBinder` | Connects trigger and sound via event subscriptions |
 
 ---
 
 ### Scene Hierarchy
-
 AlarmAgainstThief (Scene)
 ├── Ground (Plane, GroundMaterial)
 ├── Directional Light
 ├── Point_Start (empty, Z = -12)
 ├── Point_Center (empty, center of house)
 ├── Point_Exit (empty, Z = +14)
-├── Lesha (Capsule + Thief + ThiefNavigator + ThiefJourney + NavMeshAgent)
+├── Crook (Capsule + Thief + ThiefNavigator + ThiefJourney + NavMeshAgent)
 ├── AlarmBinder (AlarmBinder, references to trigger and sound)
 └── House (empty container)
 ├── Floor
@@ -76,7 +75,7 @@ text
 | `HouseMaterial` | R=0.35, G=0.20, B=0.10 | 0.15 | Walls and floor |
 | `RoofMaterial` | R=0.55, G=0.25, B=0.15 | 0.1 | Roof |
 | `GroundMaterial` | R=0.25, G=0.55, B=0.12 | 0.0 | Grass |
-| `ThiefMaterial` | R=0.85, G=0.10, B=0.10 | 0.3 | Lesha (thief) |
+| `ThiefMaterial` | R=0.85, G=0.10, B=0.10 | 0.3 | Crook |
 
 ---
 
@@ -99,7 +98,7 @@ text
 
 ## Camera Setup
 
-Recommended camera angle for optimal view of the house entrance and Lesha's approach path:
+Recommended camera angle for optimal view of the house entrance and the crook's approach:
 
 | Parameter | Value |
 |-----------|-------|
@@ -108,7 +107,7 @@ Recommended camera angle for optimal view of the house entrance and Lesha's appr
 | **Projection** | `Perspective` |
 | **Field of View** | `60` |
 
-This angle captures both the front door and the path from Lesha's start position.
+This angle captures both the front door and the path from the crook's start position.
 
 ---
 
@@ -116,12 +115,12 @@ This angle captures both the front door and the path from Lesha's start position
 
 The sequence of actions is as follows:
 
-1. Lesha starts at `Point_Start` and moves to `Point_Center` (inside the house).
-2. When Lesha crosses the door trigger, the alarm activates.
+1. The crook starts at `Point_Start` and moves to `Point_Center` (inside the house).
+2. When the crook crosses the door trigger, the alarm activates.
 3. Alarm volume and distortion smoothly increase using `Mathf.MoveTowards`.
-4. Lesha reaches the center and pauses for 2 seconds.
-5. Lesha then moves to `Point_Exit` (outside).
-6. When Lesha crosses the trigger on the way out, the alarm deactivates and smoothly fades to zero.
+4. The crook reaches the center and pauses for 2 seconds.
+5. The crook then moves to `Point_Exit` (outside).
+6. When the crook crosses the trigger on the way out, the alarm deactivates and smoothly fades to zero.
 
 ---
 
@@ -143,20 +142,18 @@ The sequence of actions is as follows:
 1. Clone the repository:
    ```bash
    git clone https://github.com/demonstalker86/AlarmAgainstThief.git
+Open the project in Unity Hub (select Unity 6.5.7f1).
 
-2.Open the project in Unity Hub (select Unity 6.5.7f1).
+Open scene Assets/Scenes/SampleScene.unity.
 
-3.Open scene Assets/Scenes/SampleScene.unity.
-
-4.Press Play and watch Lesha.
+Press Play and watch the crook trigger the alarm.
 
 Future Improvements (Optional)
 □ Add flashing light (Point Light with animation)
 □ Add UI indicator "ALARM!" on screen
 □ Add multiple houses with independent alarms
-□ Implement random waypoints for Lesha
+□ Implement random waypoints for the crook
 □ Replace primitives with Low Poly 3D models
-
 Author
 demonstalker86
 
@@ -164,4 +161,4 @@ License
 Created for educational purposes. Free to use and modify.
 
 P.S.
-Lesha is waiting for you at home! 🕵️‍♂️🔊🏠
+Lesha is waiting to catch the crook! 🕵️‍♂️🔊🏠
