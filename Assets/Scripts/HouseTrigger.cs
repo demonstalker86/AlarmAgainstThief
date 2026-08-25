@@ -4,28 +4,29 @@ public class HouseTrigger : MonoBehaviour
 {
     public event System.Action<bool> ThiefPresenceChanged;
 
-    private bool isThiefInside = false;
+    public bool IsThiefInside { get; private set; }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<Thief>(out _) == false) return;
+        if (other.TryGetComponent<Thief>(out _) == false)
+        {
+            return;
+        }
 
-        isThiefInside = true;
+        IsThiefInside = true;
 
         ThiefPresenceChanged?.Invoke(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.TryGetComponent<Thief>(out _) == false) return;
+        if (other.TryGetComponent<Thief>(out _) == false)
+        {
+            return;
+        }
 
-        isThiefInside = false;
+        IsThiefInside = false;
 
         ThiefPresenceChanged?.Invoke(false);
-    }
-
-    public bool IsThiefInside()
-    {
-        return isThiefInside;
     }
 }

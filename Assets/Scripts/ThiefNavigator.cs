@@ -4,34 +4,34 @@ using UnityEngine.AI;
 public class ThiefNavigator : MonoBehaviour
 {
     [Header("Настройки движения")]
-    [SerializeField] private float arrivalThreshold = 0.5f;
+    [SerializeField] private float _arrivalThreshold = 0.5f;
 
-    private NavMeshAgent agent;
-    private Transform currentTarget;
-    private bool hasTarget = false;
+    private NavMeshAgent _agent;
+    private Transform _currentTarget;
+    private bool _hasTarget = false;
 
     public event System.Action TargetReached;
 
     private void Awake()
     {
-        if (TryGetComponent(out agent) == false)
+        if (TryGetComponent(out _agent) == false)
         {
             Debug.LogError($"{name}: NavMeshAgent не найден!");
 
             enabled = false;
-            return;
         }
     }
 
     private void Update()
     {
-        if (hasTarget == false || agent == null || !agent.isOnNavMesh || agent.enabled == false) return;
-
-        if (agent.pathPending) return;
-
-        if (agent.remainingDistance <= arrivalThreshold)
+        if (_hasTarget == false || _agent == null || _agent.isOnNavMesh == false || _agent.enabled == false)
         {
-            hasTarget = false;
+            return;
+        }            
+
+        if (_agent.remainingDistance <= _arrivalThreshold)
+        {
+            _hasTarget = false;
 
             TargetReached?.Invoke();
         }
@@ -39,25 +39,30 @@ public class ThiefNavigator : MonoBehaviour
 
     public void SetDestination(Transform target)
     {
-        if (target == null) return;
-
-        if (agent == null || agent.isOnNavMesh == false || agent.enabled == false)
+        if (target == null)
         {
-            Debug.LogWarning($"{name}: агент не на NavMesh, цель не установлена");
+            Debug.LogWarning($"{name}: Попытка установить null цель");
 
             return;
         }
 
-        currentTarget = target;
-        hasTarget = true;
+        if (_agent == null || _agent.isOnNavMesh == false || _agent.enabled == false)
+        {
+            Debug.LogWarning($"{name}: агент не на NavMesh");
 
-        agent.SetDestination(target.position);
+            return;
+        }
+
+        _currentTarget = target;
+        _hasTarget = true;
+
+        _agent.SetDestination(target.position);
     }
 
     public void StopMovement()
     {
-        hasTarget = false;
+        _hasTarget = false;
 
-        agent.ResetPath();
+        _agent.ResetPath();
     }
 }

@@ -1,7 +1,8 @@
 markdown
+
 # Alarm Against Thief
 
-**Educational Project | Unity 6.5.7f1 | C# | SOLID, OOP**
+**Educational Project | Unity 6.5.9f1 | C# | SOLID, OOP**
 
 ---
 
@@ -128,7 +129,7 @@ The sequence of actions is as follows:
 
 | Component | Version / Description |
 |-----------|-----------------------|
-| Unity | 6.5.7f1 (CoreCLR) |
+| Unity | 6.5.9f1 (CoreCLR) |
 | Language | C# (.NET Standard 2.1) |
 | Build | IL2CPP / Mono |
 | Navigation | NavMesh (Unity AI) |
@@ -140,9 +141,11 @@ The sequence of actions is as follows:
 ## Setup & Run
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/demonstalker86/AlarmAgainstThief.git
-Open the project in Unity Hub (select Unity 6.5.7f1).
+
+Open the project in Unity Hub (select Unity 6.5.9f1).
 
 Open scene Assets/Scenes/SampleScene.unity.
 
@@ -154,6 +157,7 @@ Future Improvements (Optional)
 □ Add multiple houses with independent alarms
 □ Implement random waypoints for the crook
 □ Replace primitives with Low Poly 3D models
+
 Author
 demonstalker86
 

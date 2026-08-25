@@ -3,23 +3,23 @@ using System.Collections.Generic;
 
 public class ThiefJourney : MonoBehaviour
 {
-    [Header("Маршрут (по порядку)")]
-    [SerializeField] private List<Transform> waypoints;
+    [Header("Маршрут")]
+    [SerializeField] private List<Transform> _waypoints;
 
-    [Header("Пауза в центре дома")]
-    [SerializeField] private float pauseDuration = 2f;
+    [Header("Пауза в центре")]
+    [SerializeField] private float _pauseDuration = 2f;
 
-    [Header("Индекс центральной точки (для паузы)")]
-    [SerializeField] private int centerWaypointIndex = 1;
+    [Header("Индекс центральной точки")]
+    [SerializeField] private int _centerWaypointIndex = 1;
 
-    private ThiefNavigator navigator;
-    private int currentWaypointIndex = 0;
-    private float pauseTimer = 0f;
-    private bool isPausing = false;
+    private ThiefNavigator _navigator;
+    private int _currentWaypointIndex = 0;
+    private float _pauseTimer = 0f;
+    private bool _isPausing = false;
 
     private void Awake()
     {
-        if (TryGetComponent(out navigator) == false)
+        if (TryGetComponent(out _navigator) == false)
         {
             Debug.LogError($"{name}: ThiefNavigator не найден!");
 
@@ -27,12 +27,12 @@ public class ThiefJourney : MonoBehaviour
             return;
         }
 
-        navigator.TargetReached += HandleTargetReached;
+        _navigator.TargetReached += HandleTargetReached;
     }
 
     private void Start()
     {
-        if (waypoints.Count == 0)
+        if (_waypoints.Count == 0)
         {
             Debug.LogWarning($"{name}: Маршрут пуст!");
 
@@ -44,13 +44,16 @@ public class ThiefJourney : MonoBehaviour
 
     private void Update()
     {
-        if (isPausing == false) return;
-
-        pauseTimer -= Time.deltaTime;
-
-        if (pauseTimer <= 0f)
+        if (_isPausing == false)
         {
-            isPausing = false;
+            return;
+        }
+
+        _pauseTimer -= Time.deltaTime;
+
+        if (_pauseTimer <= 0f)
+        {
+            _isPausing = false;
 
             NavigateToNextPoint();
         }
@@ -58,10 +61,10 @@ public class ThiefJourney : MonoBehaviour
 
     private void HandleTargetReached()
     {
-        if (currentWaypointIndex == centerWaypointIndex)
+        if (_currentWaypointIndex == _centerWaypointIndex)
         {
-            isPausing = true;
-            pauseTimer = pauseDuration;
+            _isPausing = true;
+            _pauseTimer = _pauseDuration;
         }
         else
         {
@@ -71,18 +74,23 @@ public class ThiefJourney : MonoBehaviour
 
     private void NavigateToNextPoint()
     {
-        if (waypoints.Count == 0) return;
+        if (_waypoints.Count == 0)
+        {
+            return;
+        }
 
-        var target = waypoints[currentWaypointIndex];
+        Transform target = _waypoints[_currentWaypointIndex];
 
-        navigator.SetDestination(target);
+        _navigator.SetDestination(target);
 
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
+        _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Count;
     }
 
     private void OnDestroy()
     {
-        if (navigator != null)
-            navigator.TargetReached -= HandleTargetReached;
+        if (_navigator != null)
+        {
+            _navigator.TargetReached -= HandleTargetReached;
+        }            
     }
 }

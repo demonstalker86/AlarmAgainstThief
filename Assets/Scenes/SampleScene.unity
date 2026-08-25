@@ -383,14 +383,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab72d4ecf7bf789428d85cedd92707b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlarmSound
-  audioSource: {fileID: 67901005}
-  distortionFilter: {fileID: 67901004}
-  maxVolume: 1
-  minVolume: 0
-  maxDistortion: 0.8
-  minDistortion: 0
-  volumeChangeSpeed: 0.8
-  distortionChangeSpeed: 1.2
+  _audioSource: {fileID: 0}
+  _distortionFilter: {fileID: 0}
+  _maxVolume: 1
+  _minVolume: 0
+  _maxDistortion: 0.8
+  _minDistortion: 0
+  _volumeChangeSpeed: 0.8
+  _distortionChangeSpeed: 1.2
 --- !u!1 &114067661
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d68796354ee754fa22a89bc61e6fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThiefNavigator
-  arrivalThreshold: 0.5
+  _arrivalThreshold: 0.5
 --- !u!114 &124699962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,12 +471,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d720a7ad9d966434ebf129599957e8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThiefJourney
-  waypoints:
+  _waypoints:
   - {fileID: 114067662}
   - {fileID: 534846136}
   - {fileID: 889257964}
-  pauseDuration: 2
-  centerWaypointIndex: 1
+  _pauseDuration: 2
+  _centerWaypointIndex: 1
 --- !u!114 &124699963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1796,8 +1796,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 863b333b19bfca741931dd1dadd5b62b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlarmBinder
-  houseTrigger: {fileID: 1234772516}
-  alarmSound: {fileID: 67901006}
+  _houseTrigger: {fileID: 1234772516}
+  _alarmSound: {fileID: 67901006}
 --- !u!4 &1885154613
 Transform:
   m_ObjectHideFlags: 0

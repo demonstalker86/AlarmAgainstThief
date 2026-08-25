@@ -3,12 +3,12 @@ using UnityEngine;
 public class AlarmBinder : MonoBehaviour
 {
     [Header("—сылки")]
-    [SerializeField] private HouseTrigger houseTrigger;
-    [SerializeField] private AlarmSound alarmSound;
+    [SerializeField] private HouseTrigger _houseTrigger;
+    [SerializeField] private AlarmSound _alarmSound;
 
     private void Awake()
     {
-        if (houseTrigger == null)
+        if (_houseTrigger == null)
         {
             Debug.LogError($"{name}: HouseTrigger не назначен!");
 
@@ -16,7 +16,7 @@ public class AlarmBinder : MonoBehaviour
             return;
         }
 
-        if (alarmSound == null)
+        if (_alarmSound == null)
         {
             Debug.LogError($"{name}: AlarmSound не назначен!");
 
@@ -24,12 +24,15 @@ public class AlarmBinder : MonoBehaviour
             return;
         }
 
-        houseTrigger.ThiefPresenceChanged += alarmSound.SetAlarmState;
+        _houseTrigger.ThiefPresenceChanged += _alarmSound.SetAlarmState;
     }
+
 
     private void OnDestroy()
     {
-        if (houseTrigger != null)
-            houseTrigger.ThiefPresenceChanged -= alarmSound.SetAlarmState;
+        if (_houseTrigger != null)
+        {
+            _houseTrigger.ThiefPresenceChanged -= _alarmSound.SetAlarmState;
+        }            
     }
 }
